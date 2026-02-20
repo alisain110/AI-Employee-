@@ -1,0 +1,46 @@
+# Core AI Employee System Requirements
+
+# Agent and LLM
+anthropic>=0.25.0
+langchain-core>=0.1.0
+pydantic>=2.5.0
+
+# Web Framework and API
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+requests>=2.31.0
+
+# Scheduling
+APScheduler>=3.10.4
+
+# Authentication and Security
+python-dotenv>=1.0.0
+
+# Google APIs (Gmail)
+google-auth>=2.23.0
+google-auth-oauthlib>=1.1.0
+google-auth-httplib2>=0.1.0
+google-api-python-client>=2.99.0
+
+# Browser Automation (WhatsApp, LinkedIn)
+selenium>=4.11.0
+
+# File System and Utilities
+watchdog>=3.0.0
+
+# Additional dependencies
+httpx>=0.25.0
+anyio>=4.0.0
+typing-extensions>=4.8.0
+
+# Gold Tier - Accounting and Social Media
+odoorpc>=1.2.0
+facebook-business>=18.0.0
+tweepy>=4.14.0
+xmlrpc>=1.0.0
+
+# Odoo MCP Server
+odoorpc>=1.2.0
+
+# X (Twitter) API
+tweepy>=4.14.0

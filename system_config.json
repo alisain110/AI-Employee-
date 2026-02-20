@@ -1,0 +1,114 @@
+{
+  "system": {
+    "name": "AI Employee Vault",
+    "version": "1.0.0",
+    "tier": "Platinum",
+    "environment": "development"
+  },
+  "directories": {
+    "inbox": "Inbox",
+    "needs_action": "Needs_Action",
+    "approved": "Approved",
+    "done": "Done",
+    "pending_approval": "Pending_Approval",
+    "pending_approval_cloud": "Pending_Approval/cloud",
+    "logs": "Logs",
+    "audits": "Audits",
+    "accounting": "Accounting",
+    "social_summaries": "Social_Summaries",
+    "briefings": "Briefings",
+    "ralph_logs": "Ralph_Logs"
+  },
+  "services": {
+    "platinum_orchestrator": {
+      "enabled": true,
+      "module": "platinum_local_orchestrator",
+      "port": 8000,
+      "restart_on_failure": true
+    },
+    "approval_executor": {
+      "enabled": true,
+      "module": "approval_executor",
+      "restart_on_failure": true
+    },
+    "dashboard_merger": {
+      "enabled": true,
+      "module": "dashboard_merger",
+      "restart_on_failure": true
+    },
+    "cloud_watchers": {
+      "enabled": true,
+      "module": "cloud_watchers",
+      "restart_on_failure": true
+    },
+    "watchdog": {
+      "enabled": true,
+      "module": "platinum_watchdog_win",
+      "restart_on_failure": true
+    },
+    "mcp_servers": {
+      "odoo_draft": {
+        "enabled": true,
+        "module": "odoo_draft_mcp",
+        "port": 8001
+      },
+      "odoo_execute": {
+        "enabled": true,
+        "module": "odoo_execute_mcp",
+        "port": 8002
+      },
+      "social": {
+        "enabled": true,
+        "module": "social_mcp_server",
+        "port": 8003
+      },
+      "gmail": {
+        "enabled": true,
+        "module": "gmail_draft_mcp",
+        "port": 8004
+      }
+    },
+    "ralph_mode": {
+      "enabled": true,
+      "module": "ralph_loop",
+      "restart_on_failure": false
+    }
+  },
+  "monitoring": {
+    "dashboard_update_interval": 30,
+    "health_check_interval": 60,
+    "log_retention_days": 30,
+    "audit_retention_days": 90
+  },
+  "security": {
+    "approval_required": true,
+    "max_file_size_mb": 10,
+    "sensitive_keywords": ["password", "secret", "confidential"],
+    "auto_delete_inbox_after_days": 7
+  },
+  "integration": {
+    "odoo": {
+      "enabled": true,
+      "url": "https://your_odoo_instance.com",
+      "database": "your_database",
+      "api_key": "your_api_key",
+      "verify_ssl": true
+    },
+    "gmail": {
+      "enabled": true,
+      "api_enabled": true
+    },
+    "social": {
+      "linkedin": true,
+      "twitter": false,
+      "facebook": false,
+      "instagram": false
+    }
+  },
+  "performance": {
+    "max_workers": 4,
+    "file_processing_timeout": 300,
+    "api_timeout": 30,
+    "max_restarts_per_minute": 3
+  }
+}

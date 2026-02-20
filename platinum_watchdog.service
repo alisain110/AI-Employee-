@@ -1,0 +1,30 @@
+[Unit]
+Description=Platinum Tier Watchdog Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=aiuser
+Group=aiuser
+WorkingDirectory=/home/aiuser/AI_Employee_Vault
+Environment=PYTHONPATH=/home/aiuser/AI_Employee_Vault
+ExecStart=/usr/bin/python3 /home/aiuser/AI_Employee_Vault/platinum_watchdog.py --env=local
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/aiuser/AI_Employee_Vault/
+
+# Limit resources
+LimitNOFILE=65536
+LimitNPROC=32768
+
+[Install]
+WantedBy=multi-user.target

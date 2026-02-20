@@ -1,0 +1,83 @@
+# Environment and secrets
+.env
+*.env
+.env.*
+
+# Session files
+*.session
+linkedin_session/
+whatsapp_session/
+WhatsApp_Sessions/
+Banking_Creds/
+
+# Node and dependency directories
+node_modules/
+
+# Claude cache and temporary files
+.claude/cache/
+.claude/temp/
+*.tmp
+*.temp
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Logs that might contain sensitive data
+Logs/audit_*.log
+Logs/odoo_actions.log
+Logs/social_mcp_actions.log
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Credentials and configuration files
+*.pem
+*.key
+*.crt
+*.cert
+*.json *.json[!.gitignore]  # Exclude JSON files that might be credential files
+
+# Obsidian specific
+.obsidian/
+.vault.lock
+
+# Platinum tier directories (local only)
+In_Progress/local/
+Approved/archived/
+Updates/archive/
+Signals/archive/
+
+# Other potentially sensitive directories
+Credentials/
+Secrets/
+Config/
+config/
+
+# Temporary files from demo/testing
+Inbox/demo_test_email.txt
+Pending_Approval/cloud/demo_approval_*.json
+Approved/demo_approval_*.json
+Done/result_demo_approval_*.json
+*.tmp.*
+
+# Archive temporary files
+04_Archive/*.tmp*
+
+# Plans temporary files
+Plans/*.tmp*
+
+# Test and generated files
+Logs/comprehensive_test_results.json
+Audits/test_audit_*.json
