@@ -1,32 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Render build script for AI Employee Vault
-# This script prepares the application for deployment on Render
+echo "Installing Chrome & dependencies..."
 
-set -e  # Exit on any error
+sudo apt-get update
+sudo apt-get install -y wget unzip fontconfig libfontconfig1 libjpeg-turbo8 libpng16-16 libx11-6 libxcb1 libxext6 libxrender1 xfonts-75dpi xfonts-base libgtk-3-0 libnss3 libgconf-2-4 libasound2 libdbus-glib-1-2 libxt6
 
-echo "Starting build process for AI Employee Vault..."
+# Install latest stable Google Chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y
+rm google-chrome-stable_current_amd64.deb
 
-# Install system dependencies that may be needed
-apt-get update
-apt-get install -y build-essential curl wget unzip xvfb libxi6 libgconf-2-4
+echo "Chrome installed. Version:"
+google-chrome --version
 
-# Install Python dependencies
-echo "Installing Python dependencies..."
-pip install --upgrade pip
+# Optional: Install Chromium as fallback
+sudo apt-get install -y chromium-browser
+
+# Your normal pip install
 pip install -r requirements.txt
-
-# Install Chrome for Selenium (used in WhatsApp watcher)
-echo "Installing Chrome for browser automation..."
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-apt-get update
-apt-get install -y google-chrome-stable
-
-# Set environment variables for headless browser operations
-export DISPLAY=:99
-Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-sleep 3
-
-echo "Build process completed successfully!"
-echo "AI Employee Vault is ready for deployment."
