@@ -46,6 +46,15 @@
       "module": "platinum_watchdog_win",
       "restart_on_failure": true
     },
+    "error_detection": {
+      "enabled": true,
+      "module": "api.error_detection",
+      "port": 8005,
+      "restart_on_failure": true,
+      "max_analysis_time": 10000,
+      "cache_enabled": true,
+      "cache_ttl_seconds": 300
+    },
     "mcp_servers": {
       "odoo_draft": {
         "enabled": true,

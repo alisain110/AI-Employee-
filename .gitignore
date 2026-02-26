@@ -80,4 +80,10 @@ Plans/*.tmp*
 
 # Test and generated files
 Logs/comprehensive_test_results.json
-Audits/test_audit_*.json
+Audits/test_audit_*.jsonclient_secret*.json
+*.log
+Logs/
+Audits/
+client_secret*.json
+.claude/settings.local.json
+mcp_server/logs/

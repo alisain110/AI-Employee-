@@ -234,7 +234,7 @@ class SystemStatusDashboard:
         active_services = 0
         total_services = len(summary["service_status"])
         for service, running in summary["service_status"].items():
-            status = "✅ RUNNING" if running else "❌ STOPPED"
+            status = "[RUN] RUNNING" if running else "[STP] STOPPED"
             if running:
                 active_services += 1
             report.append(f"- {service}: {status}")
@@ -244,7 +244,7 @@ class SystemStatusDashboard:
         # Log Health
         report.append("## Log Health")
         for log_file, health in summary["log_health"].items():
-            emoji = "✅" if health == "OK" else "⚠️" if health == "WARNING" else "❌"
+            emoji = "[OK]" if health == "OK" else "[WRN]" if health == "WARNING" else "[ERR]"
             report.append(f"- {log_file}: {emoji} {health}")
         report.append("")
 

@@ -1,0 +1,80 @@
+#!/bin/bash
+# This script demonstrates how the AI Employee Vault would run on Ubuntu
+# It simulates the commands that would be executed in a real Ubuntu environment
+
+echo "=================================="
+echo "AI EMPLOYEE VAULT - UBUNTU DEMO"
+echo "Simulating 24/7 operation setup"
+echo "=================================="
+
+# Simulate the key commands that would run on Ubuntu
+echo ""
+echo "1. System update and prerequisites installation:"
+echo "   sudo apt update && sudo apt install -y python3 python3-pip python3-venv git curl wget"
+echo "   curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -"
+echo "   sudo apt install -y nodejs google-chrome-stable"
+
+echo ""
+echo "2. ChromeDriver installation:"
+echo "   CHROME_VERSION=\$(google-chrome --version | grep -oP '\\d+\\.\\d+\\.\\d+')"
+echo "   CHROMEDRIVER_VERSION=\$(curl -s \"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_\$CHROME_VERSION\")"
+echo "   wget -O /tmp/chromedriver.zip \"https://chromedriver.storage.googleapis.com/\$CHROMEDRIVER_VERSION/chromedriver_linux64.zip\""
+echo "   sudo unzip /tmp/chromedriver.zip -d /usr/local/bin/"
+echo "   sudo chmod +x /usr/local/bin/chromedriver"
+
+echo ""
+echo "3. Clone and setup project:"
+echo "   cd /home/ubuntu"
+echo "   git clone https://github.com/your-username/ai_employee_vault.git"
+echo "   cd ai_employee_vault"
+
+echo ""
+echo "4. Python virtual environment setup:"
+echo "   python3 -m venv venv"
+echo "   source venv/bin/activate"
+echo "   pip install --upgrade pip"
+echo "   pip install -r requirements.txt"
+
+echo ""
+echo "5. PM2 installation and setup:"
+echo "   npm install -g pm2"
+echo "   mkdir -p logs pids"
+echo "   pm2 startup"
+echo "   sudo env PATH=\$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu"
+
+echo ""
+echo "6. Start services with PM2:"
+echo "   pm2 start ecosystem.config.js"
+echo "   pm2 save"
+
+echo ""
+echo "7. Verify system status:"
+echo "   pm2 status"
+echo "   pm2 logs --lines 10"
+
+echo ""
+echo "=================================="
+echo "SYSTEM WOULD BE RUNNING 24/7 WITH:"
+echo "- AI Orchestrator monitoring file system"
+echo "- Gmail watcher monitoring emails"
+echo "- WhatsApp watcher monitoring messages"
+echo "- LinkedIn watcher monitoring notifications"
+echo "- All services auto-restarting on crashes"
+echo "- Health monitoring via cron jobs"
+echo "=================================="
+
+echo ""
+echo "TO VIEW REAL-TIME LOGS:"
+echo "   pm2 logs"
+echo ""
+echo "TO MONITOR RESOURCES:"
+echo "   pm2 monit"
+echo ""
+echo "TO CHECK SPECIFIC SERVICE:"
+echo "   pm2 show ai-orchestrator"
+echo "   pm2 show gmail-watcher"
+echo "   pm2 show whatsapp-watcher"
+echo "   pm2 show linkedin-watcher"
+echo ""
+
+echo "System is ready for 24/7 operation!"

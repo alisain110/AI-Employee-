@@ -1,0 +1,21 @@
+From: test.sender@example.com
+To: ai.employee@example.com
+Subject: FRESH DEMO TEST - Please Process
+
+This is a fresh test email for the Platinum Tier demo.
+Please process this email and create a reply.
+
+This email will test the complete workflow:
+1. Email arrives in Inbox
+2. Cloud orchestrator detects it
+3. Draft reply is created
+4. Approval file is generated in Pending_Approval/cloud/
+5. Git sync brings it to local
+6. Human approves by moving to Approved/
+7. Local executes and sends reply
+8. Dashboard updates and file moves to Done/
+
+Please confirm the full workflow completes successfully.
+
+Best regards,
+Test Sender

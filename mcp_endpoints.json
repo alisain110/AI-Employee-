@@ -1,81 +1,14 @@
 {
-  "services": {
-    "odoo_draft": {
-      "name": "Odoo Draft MCP",
-      "url": "http://localhost:8001",
-      "description": "Cloud-only Odoo operations for drafts",
-      "endpoints": [
-        "/create_draft_invoice",
-        "/create_draft_customer",
-        "/read_report",
-        "/search_customers",
-        "/health"
-      ]
+  "social_mcp": {
+    "url": "http://localhost:8001",
+    "endpoints": {
+      "facebook_post": "/facebook/post",
+      "x_post": "/x/post",
+      "generate_facebook_summary": "/social/summary/facebook",
+      "generate_instagram_summary": "/social/summary/instagram",
+      "generate_x_summary": "/social/summary/x"
     },
-    "odoo_execute": {
-      "name": "Odoo Execute MCP",
-      "url": "http://localhost:8002",
-      "description": "Local-only Odoo operations for execution",
-      "endpoints": [
-        "/post_invoice",
-        "/register_payment",
-        "/confirm_customer",
-        "/health"
-      ]
-    },
-    "gmail_draft": {
-      "name": "Gmail Draft MCP",
-      "url": "http://localhost:8004",
-      "description": "Gmail draft operations",
-      "endpoints": [
-        "/draft_email",
-        "/send_draft",
-        "/get_emails",
-        "/health"
-      ]
-    },
-    "social": {
-      "name": "Social Media MCP",
-      "url": "http://localhost:8003",
-      "description": "Social media operations",
-      "endpoints": [
-        "/post_linkedin",
-        "/post_twitter",
-        "/get_social_stats",
-        "/health"
-      ]
-    }
-  },
-  "endpoints": {
-    "odoo_draft_mcp": {
-      "host": "0.0.0.0",
-      "port": 8001,
-      "enabled": true
-    },
-    "odoo_execute_mcp": {
-      "host": "0.0.0.0",
-      "port": 8002,
-      "enabled": true
-    },
-    "social_mcp": {
-      "host": "0.0.0.0",
-      "port": 8003,
-      "enabled": true
-    },
-    "gmail_draft_mcp": {
-      "host": "0.0.0.0",
-      "port": 8004,
-      "enabled": true
-    }
-  },
-  "authentication": {
-    "required": true,
-    "methods": ["api_key", "oauth"],
-    "api_key_header": "Authorization"
-  },
-  "monitoring": {
-    "health_check_interval": 30,
-    "metrics_enabled": true,
-    "logging_level": "INFO"
+    "auth_required": true,
+    "api_key_env": "SOCIAL_MCP_API_KEY"
   }
 }

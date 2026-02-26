@@ -11,6 +11,7 @@ import threading
 from dataclasses import dataclass, asdict
 from enum import Enum
 
+
 class AuditActor(str, Enum):
     WATCHER = "watcher"
     CLAUDE = "claude"
@@ -18,6 +19,8 @@ class AuditActor(str, Enum):
     ORCHESTRATOR = "orchestrator"
     SCHEDULER = "scheduler"
     AGENT = "agent"
+    ERROR_DETECTOR = "error_detector"
+
 
 class AuditAction(str, Enum):
     MCP_CALL = "mcp_call"
@@ -28,6 +31,10 @@ class AuditAction(str, Enum):
     FILE_OPERATION = "file_operation"
     ERROR_OCCURRED = "error_occurred"
     SYSTEM_STATUS = "system_status"
+    ERROR_DETECTION = "error_detection"
+    ERROR_EXPLANATION = "error_explanation"
+    ERROR_FIX_SUGGESTION = "error_fix_suggestion"
+
 
 @dataclass
 class AuditLogEntry:
@@ -39,6 +46,7 @@ class AuditLogEntry:
     details: Dict[str, Any]
     error: Optional[str] = None
     session_id: Optional[str] = None
+
 
 class AuditLogger:
     """Comprehensive audit logging system"""
@@ -220,6 +228,78 @@ class AuditLogger:
         )
         self.log_entry(entry)
 
+    def log_error_detection(self,
+                          filename: str,
+                          total_errors: int,
+                          processing_time: float,
+                          success: bool,
+                          error: str = None,
+                          session_id: str = None):
+        """Log error detection events"""
+        entry = AuditLogEntry(
+            timestamp=datetime.now().isoformat(),
+            actor=AuditActor.CLAUDE,
+            action=AuditAction.ERROR_DETECTION,
+            success=success,
+            details={
+                "filename": filename,
+                "total_errors": total_errors,
+                "processing_time": processing_time,
+                "timestamp": datetime.now().isoformat()
+            },
+            error=error,
+            session_id=session_id
+        )
+        self.log_entry(entry)
+
+    def log_error_explanation(self,
+                            error_type: str,
+                            error_message: str,
+                            explanation_provided: bool,
+                            success: bool,
+                            error: str = None,
+                            session_id: str = None):
+        """Log error explanation events"""
+        entry = AuditLogEntry(
+            timestamp=datetime.now().isoformat(),
+            actor=AuditActor.CLAUDE,
+            action=AuditAction.ERROR_EXPLANATION,
+            success=success,
+            details={
+                "error_type": error_type,
+                "error_message": error_message,
+                "explanation_provided": explanation_provided,
+                "timestamp": datetime.now().isoformat()
+            },
+            error=error,
+            session_id=session_id
+        )
+        self.log_entry(entry)
+
+    def log_error_fix_suggestion(self,
+                               error_type: str,
+                               error_message: str,
+                               fix_suggested: bool,
+                               success: bool,
+                               error: str = None,
+                               session_id: str = None):
+        """Log error fix suggestion events"""
+        entry = AuditLogEntry(
+            timestamp=datetime.now().isoformat(),
+            actor=AuditActor.CLAUDE,
+            action=AuditAction.ERROR_FIX_SUGGESTION,
+            success=success,
+            details={
+                "error_type": error_type,
+                "error_message": error_message,
+                "fix_suggested": fix_suggested,
+                "timestamp": datetime.now().isoformat()
+            },
+            error=error,
+            session_id=session_id
+        )
+        self.log_entry(entry)
+
     def _safe_summary(self, obj):
         """Create a safe summary of potentially large objects"""
         if obj is None:
@@ -240,6 +320,7 @@ class AuditLogger:
                 return [self._safe_summary(item) for item in obj[:10]]
         return str(type(obj))
 
+
 # Global audit logger instance
 _audit_logger = None
 def get_audit_logger() -> AuditLogger:
@@ -248,6 +329,7 @@ def get_audit_logger() -> AuditLogger:
     if _audit_logger is None:
         _audit_logger = AuditLogger()
     return _audit_logger
+
 
 # Error recovery utilities
 import time
@@ -293,6 +375,7 @@ def retry_on_transient_error(max_retries: int = 3, base_delay: float = 1.0):
             raise last_exception
         return wrapper
     return decorator
+
 
 def graceful_fallback(fallback_action=None):
     """
