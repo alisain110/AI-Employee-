@@ -38,11 +38,17 @@ class WhatsAppWatcher:
         if not HAS_SELENIUM:
             raise ImportError("Selenium not installed. Install with: pip install selenium")
 
+        from selenium.webdriver.chrome.service import Service
+        from webdriver_manager.chrome import ChromeDriverManager
+
         chrome_options = Options()
+        chrome_options.add_argument("--headless")           # must for server
+        chrome_options.add_argument("--no-sandbox")         # required on Render/Linux servers
+        chrome_options.add_argument("--disable-dev-shm-usage")  # avoids memory issues
+        chrome_options.add_argument("--disable-gpu")        # often helps in headless
+        chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument(f"--user-data-dir={self.session_folder.absolute()}")
         chrome_options.add_argument("--profile-directory=Default")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option('useAutomationExtension', False)
@@ -50,7 +56,9 @@ class WhatsAppWatcher:
         # Create session folder if it doesn't exist
         self.session_folder.mkdir(parents=True, exist_ok=True)
 
-        self.driver = webdriver.Chrome(options=chrome_options)
+        # Auto install & use correct driver
+        service = Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
     def authenticate(self):
